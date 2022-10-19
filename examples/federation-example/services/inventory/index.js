@@ -2,12 +2,16 @@ const { ApolloServer, gql } = require('apollo-server');
 const { buildSubgraphSchema } = require('@apollo/subgraph');
 
 const typeDefs = gql`
+  type Test {
+    name: String
+  }
   extend type Product @key(fields: "upc") {
     upc: String! @external
     weight: Int @external
     price: Int @external
     inStock: Boolean
     shippingEstimate: Int @requires(fields: "price weight")
+    test: Test @requires(fields: "price weight")
   }
 `;
 
